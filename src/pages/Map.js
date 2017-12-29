@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-
+import Header from './../components/Header';
 class MapComponent extends Component {
 
   constructor(props){
@@ -11,6 +11,8 @@ class MapComponent extends Component {
   render() {
     return (
       <div className="App">
+
+        <Header linkBack={'/search'} />
         <Map 
           google={this.props.google} 
           zoom={15}

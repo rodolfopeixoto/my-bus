@@ -3,10 +3,6 @@ import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class FormBase extends Component {
-    
-    constructor(props){
-      super(props);
-    }
 
     render() {
         return (
@@ -23,7 +19,7 @@ class FormBase extends Component {
               </FormGroup>
 
               <FormGroup>
-                <Button>{ this.props.submit }</Button>
+                <Link to={this.props.linkSubmit}><Button>{ this.props.textSubmit }</Button></Link>
               </FormGroup>
               
               <FormGroup>
