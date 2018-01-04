@@ -5,9 +5,79 @@ class MapComponent extends Component {
 
   constructor(props){
     super(props);
-    this.state = { selectedPlace: {name: ''} }
+    this.state = { 
+      selectedPlace: { name: '' },
+      lat: -21.762690,
+      long: -41.318488
+    }
+  }
+
+  componentWillMount(){
+    this.getLocation();
+    console.log('componentWillMount');
+  }
+
+  componentWillUpdate() {
+    this.updateLocation();
+    console.log('componentWillUpdate');
+  }
+
+  getLocation(){
+    let lat = null;
+    let long = null;
+    console.log('getLocation: 23')
+    if(!!navigator.geolocation){
+      //support
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        lat  = position.coords.latitude;
+        long = position.coords.longitude;
+
+        console.log('Latitude: ' + lat);
+        console.log('Latitude: ' + long);
+
+         this.setState({
+           lat: lat,
+           long: long
+         });
+
+      })
+     
+      
+    }else{
+      //No support
+    }
   }
   
+
+  updateLocation(){
+    let id = navigator.geolocation.watchPosition((position) => {
+      var coords = position.coords;
+      let lat = null;
+      let long = null;
+
+      if (this.state.lat === coords.latitude && this.state.long === coords.longitude) {
+        console.log('Congratulations, you reached the target');
+        navigator.geolocation.clearWatch(id);
+      }
+
+
+      lat  = coords.latitude;
+      long = coords.longitude;
+
+      console.log('Latitude: ' + lat);
+      console.log('Latitude: ' + long);
+
+      this.setState({
+        lat: lat,
+        long: long
+      });
+
+    }, (err) => {
+      console.warn('ERROR(' + err.code + '): ' + err.message);
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -17,16 +87,16 @@ class MapComponent extends Component {
           google={this.props.google} 
           zoom={15}
           style={style}
-          initialCenter={{
-            lat: -21.762690,
-            lng: -41.318488
+          center={{
+            lat: this.state.lat,
+            lng: this.state.long
           }}
           onClick={this.onMapClicked}
           >
 
         <Marker 
             name={'Your position'}
-            position={{ lat: -21.762690, lng: -41.318488 }}
+            position={{ lat: this.state.lat, lng: this.state.long }}
         />
 
         <InfoWindow onClose={this.onInfoWindowClose}>
