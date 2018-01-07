@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import Header from './../components/Header';
+require('dotenv').config()
+
 class MapComponent extends Component {
 
   constructor(props){
@@ -116,5 +118,5 @@ const style = {
 }
 
 export default GoogleApiWrapper({
-  apiKey: ('AIzaSyCgucw6vRRf7ghik147VgXJLdgygLSklPU')
+  apiKey: (process.env.APIMap)
 })(MapComponent)
