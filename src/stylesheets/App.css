@@ -39,3 +39,9 @@
 .card-body {
     text-align: center;
 }
+
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -4,22 +4,39 @@ import { Link } from 'react-router-dom';
 
 class FormBase extends Component {
 
+  constructor(props){
+    super(props);
+    this.page = this.props.page
+  }
+
+  onSubmit(event){
+    
+    event.preventDefault();
+    
+    if(this.page === 'signup'){
+      console.log('signup');
+    }else if(this.page === 'signin'){
+      console.log('signin');
+    }
+    
+  }
+
     render() {
         return (
           <Container>
-            <Form>
+            <Form onSubmit={ this.onSubmit.bind(this) } >
               <FormGroup>
                 <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                <Input type="email" name="email" id="email" placeholder="with a placeholder" />
               </FormGroup>
 
               <FormGroup>
                 <Label for="examplePassword">Password</Label>
-                <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                <Input type="password" name="password" id="password" placeholder="password placeholder" />
               </FormGroup>
 
               <FormGroup>
-                <Link to={this.props.linkSubmit}><Button>{ this.props.textSubmit }</Button></Link>
+                <Button>{ this.props.textSubmit }</Button>
               </FormGroup>
               
               <FormGroup>

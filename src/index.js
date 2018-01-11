@@ -1,7 +1,9 @@
 import React from 'react';
 import './index.css';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Account from './pages/Account';
+import PasswordForget from './pages/PasswordForget'
 import Map from './pages/Map';
 import Bus from './pages/Bus';
 import MyLocation from './pages/MyLocation';
@@ -14,9 +16,11 @@ ReactDOM.render(
     (
         <Router>
             <div>
-                <Route exact path='/' component={Login} />
-                <Route path='/login' component={Login} />
-                <Route path='/cadastrar' component={Register} />
+                <Route exact path='/' component={SignIn} />
+                <Route path='/login' component={SignIn} />
+                <Route path='/cadastrar' component={SignUp} />
+                <Route path='/esqueceu-senha' component={PasswordForget} />
+                <Route path='/conta' component={Account} />
                 <Route path='/mapa' component={Map} />
                 <Route path='/search' component={Bus} />
                 <Route path='/localizacao' component={MyLocation} />

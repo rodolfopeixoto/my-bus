@@ -118,5 +118,5 @@ const style = {
 }
 
 export default GoogleApiWrapper({
-  apiKey: (process.env.APIMap)
+  apiKey: (process.env.REACT_APP_API_MAP)
 })(MapComponent)

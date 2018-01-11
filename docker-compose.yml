@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: react-cli
+    container_name: react-cli
+    env_file:
+      - dev.env
+    volumes:
+      - .:/meubus
+    ports:
+      - "3001:3000"
