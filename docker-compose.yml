@@ -2,8 +2,8 @@ version: '3'
 services:
   web:
     build: .
-    image: react-cli
-    container_name: react-cli
+    image: react-meubus
+    container_name: react-meubus
     env_file:
       - dev.env
     volumes:

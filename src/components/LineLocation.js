@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import Header from './../components/Header';
+import Header from './Header';
 require('dotenv').config()
 
-class MapComponent extends Component {
+class LineLocation extends Component {
 
   constructor(props){
     super(props);
@@ -119,4 +119,4 @@ const style = {
 
 export default GoogleApiWrapper({
   apiKey: (process.env.REACT_APP_API_MAP)
-})(MapComponent)
+})(LineLocation)
