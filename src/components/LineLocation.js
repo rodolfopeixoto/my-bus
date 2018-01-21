@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import Header from './Header';
 require('dotenv').config()
 
 class LineLocation extends Component {
@@ -83,8 +82,6 @@ class LineLocation extends Component {
   render() {
     return (
       <div className="App">
-
-        <Header linkBack={'/search'} />
         <Map 
           google={this.props.google} 
           zoom={15}
@@ -95,7 +92,6 @@ class LineLocation extends Component {
           }}
           onClick={this.onMapClicked}
           >
-
         <Marker 
             name={'Your position'}
             position={{ lat: this.state.lat, lng: this.state.long }}
@@ -106,6 +102,7 @@ class LineLocation extends Component {
               <h1>{this.state.selectedPlace.name}</h1>
             </div>
         </InfoWindow>
+
       </Map>
       </div>
     );

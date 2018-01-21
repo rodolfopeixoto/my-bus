@@ -15,6 +15,7 @@ import Lines from './Lines';
 import ShareLocation from './ShareLocation'
 import * as routes from '../constants/routes';
 import withAuthentication from './withAuthentication';
+import Test from './Test';
 
 const App = () =>
   <Router>
@@ -30,7 +31,10 @@ const App = () =>
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
       <Route exact path={routes.LINE} component={() => <LineLocation />} />
       <Route exact path={routes.SEARCH_BUS} component={() => <Lines />} />
-      <Route exact path={routes.SHARE_LOCATION} component={() => <ShareLocation />} />
+      
+      <Route   path={routes.SHARE_LOCATION} component={ ShareLocation } />
+      
+      <Route exact path={routes.TEST} component={() => <Test />} />
     </div>
   </Router>
 

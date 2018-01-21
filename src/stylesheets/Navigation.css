@@ -13,3 +13,15 @@
 .nav-link:hover {
     color: rgb(226, 226, 226);
 }
+
+.container {
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 8px;
+}
+
+.form-control {
+    margin: 15px 0;
+}

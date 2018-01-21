@@ -25,8 +25,8 @@ class HomePage extends Component {
     const { users } = this.state;
 
     return(
-      <div>
-        <h1>Home</h1>
+      <div className="container">
+        <h2>Vamos compartilhar e mudar a cidade?</h2>
         <p>The Home Page is accessble by every signed in user.</p>
 
         { !!users && <UserList users={users} /> }
@@ -39,8 +39,7 @@ class HomePage extends Component {
 
 
 const UserList = ({ users }) =>
- <div>
-   <h2>Vamos compartilhar e mudar a cidade?</h2>
+ <div className="container">
 
    {
      Object.keys(users).map( key => 
@@ -48,6 +47,18 @@ const UserList = ({ users }) =>
     )
    }
 
+  <h3>Convide seus amigos a testar</h3>
+  <h4>Você tem x convites</h4>
+  <form className="form-control">
+    <div className="form-group">
+      <input
+        type="email"
+        placeholder="carlos@meubus.me"
+        className="form-control"
+      />
+    </div>
+    <button type="submit" className="form-control btn btn-primary">Convidar</button>
+  </form>
  </div>
 
 const authCondition = (authUser) => !!authUser;

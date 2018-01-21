@@ -7,7 +7,8 @@ import withAuthorization from './withAuthorization';
 
 const AccountPage = (props, { authUser }) =>
     <div className="container">
-        <h1>Conta: {authUser.email}</h1>
+        <h1>Conta</h1>
+        <p>{authUser.email}</p>
         <PasswordForgetForm />
         <PasswordChangeForm />
     </div>

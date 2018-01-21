@@ -51,10 +51,10 @@ class NavigationAuth extends React.Component {
               <Link to={routes.SEARCH_BUS} className="nav-link">Linhas</Link>
             </NavItem>
             <NavItem>
-              <Link to={routes.SHARE_LOCATION} className="nav-link">Compartilhar</Link>
+              <Link to={routes.ACCOUNT} className="nav-link">Conta</Link>
             </NavItem>
             <NavItem>
-              <Link to={routes.ACCOUNT} className="nav-link">Conta</Link>
+              <Link to={routes.TEST} className="nav-link">TESTE</Link>
             </NavItem>
             <NavItem>
               <SignOutButton />
