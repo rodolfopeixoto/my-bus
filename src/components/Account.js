@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import Navigation from './Navigation';
 import { PasswordForgetForm } from './PasswordForget';
 import PasswordChangeForm from './PasswordChange';
 import withAuthorization from './withAuthorization';
 
 const AccountPage = (props, { authUser }) =>
-    <div className="container">
-        <h1>Conta</h1>
-        <p>{authUser.email}</p>
-        <PasswordForgetForm />
-        <PasswordChangeForm />
+    <div>
+        <Navigation />
+        <div className="container">
+            <h1>Conta</h1>
+            <p>{authUser.email}</p>
+            <PasswordForgetForm />
+            <PasswordChangeForm />
+        </div>
     </div>
 
 AccountPage.contextTypes = {

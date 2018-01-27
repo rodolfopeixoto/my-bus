@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
+import Navigation from './Navigation';
 
 class HomePage extends Component {
 
@@ -25,12 +26,14 @@ class HomePage extends Component {
     const { users } = this.state;
 
     return(
-      <div className="container">
-        <h2>Vamos compartilhar e mudar a cidade?</h2>
-        <p>The Home Page is accessble by every signed in user.</p>
+      <div>
+        <Navigation />
+        <div className="container">
+          <h2>Vamos compartilhar e mudar a cidade?</h2>
+          <p>The Home Page is accessble by every signed in user.</p>
 
-        { !!users && <UserList users={users} /> }
-
+          { !!users && <UserList users={users} /> }
+        </div>
       </div>
     );
   }

@@ -13,13 +13,12 @@ const TestPage = ({ history }) =>
   </div>
 
 const INITIAL_STATE = {
-  business: '',
-  numberLine: '',
-  itinerary: '',
-  timestamp: Date.now(),
+  nomeDaEmpresa: '',
+  direcao: '',
+  itinerario: '',
+  cidade: 'campos-dos-goytacazes',
   email: '',
-  updated_at: Date.now(),
-  city: 'camposDosGoytacazes',
+  pontos: '',
   error: null
 }
 
@@ -37,13 +36,13 @@ class TestForm extends Component {
   onSubmit = (event) => {
 
     const {
-      business,
-      numberLine,
-      itinerary,
-      timestamp,
-      email,
-      updated_at,
-      city
+      nomeDaEmpresa,
+      direcao,
+      itinerario,
+      cidade,
+      paramsItinerario,
+      pontos,
+      transporte
     } = this.state;
 
     const {
@@ -54,7 +53,7 @@ class TestForm extends Component {
 
     event.preventDefault();
 
-    db.doCreateLine(business, numberLine, itinerary, timestamp, email, updated_at, city)
+    db.doCreateLine(nomeDaEmpresa, direcao, itinerario, cidade, paramsItinerario, pontos, transporte)
       .then( () => {
         this.setState( () =>( {...INITIAL_STATE } ));
         console.log('Criado com sucesso.');
@@ -68,49 +67,50 @@ class TestForm extends Component {
   render(){
 
     const {
-      business,
-      numberLine,
-      itinerary,
-      timestamp,
-      email,
-      updated_at,
-      city,
-      error,
+      nomeDaEmpresa,
+      direcao,
+      itinerario,
+      cidade,
+      paramsItinerario,
+      pontos,
+      transporte,
+      error
     } = this.state;
 
     const isInvalid =
-      business === '' ||
-      numberLine === '' ||
-      itinerary === '' || 
-      email === ''
+      nomeDaEmpresa === '' ||
+      direcao === '' ||
+      itinerario === '' ||
+      paramsItinerario === '' ||
+      transporte === ''
 
 
     return(
       <form onSubmit={this.onSubmit}>
         <div className="form-group">
         <input 
-          value={business}
-          onChange={ event => this.setState(byPropKey('business', event.target.value)) }
+          value={nomeDaEmpresa}
+          onChange={ event => this.setState(byPropKey('nomeDaEmpresa', event.target.value)) }
           type="text"
-          placeholder="Negócios"
+          placeholder="Empresa"
           className="form-control"
         />
         </div>
 
         <div className="form-group">
           <input
-            value={numberLine}
-            onChange={event => this.setState(byPropKey('numberLine', event.target.value))}
+            value={direcao}
+            onChange={event => this.setState(byPropKey('direcao', event.target.value))}
             type="text"
-            placeholder="Número da Linha"
+            placeholder="Direção"
             className="form-control"
           />
         </div>
 
         <div className="form-group">
         <input 
-          value={itinerary}
-          onChange={ event => this.setState(byPropKey('itinerary', event.target.value)) }
+          value={itinerario}
+          onChange={ event => this.setState(byPropKey('itinerario', event.target.value)) }
           type="text"
           placeholder="Itinerário"
           className="form-control"
@@ -118,13 +118,33 @@ class TestForm extends Component {
         </div>
 
         <div className="form-group">
+          <input
+            value={paramsItinerario}
+            onChange={event => this.setState(byPropKey('paramsItinerario', event.target.value))}
+            type="text"
+            placeholder="Parametro Itinerário"
+            className="form-control"
+          />
+        </div>
+
+        <div className="form-group">
         <input 
-          value={email}
-          onChange={ event => this.setState(byPropKey('email', event.target.value)) }
-          type="email"
-          placeholder="Email"
+          value={pontos}
+          onChange={ event => this.setState(byPropKey('pontos', event.target.value)) }
+          type="text"
+          placeholder="Pontos"
           className="form-control"
         />
+        </div>
+
+        <div className="form-group">
+          <input
+            value={transporte}
+            onChange={event => this.setState(byPropKey('transporte', event.target.value))}
+            type="text"
+            placeholder="onibus ou van"
+            className="form-control"
+          />
         </div>
         <button disabled={isInvalid} type="submit" className="btn btn-primary form-control">
           Cadastrar

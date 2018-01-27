@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -17,25 +17,36 @@ import * as routes from '../constants/routes';
 import withAuthentication from './withAuthentication';
 import Test from './Test';
 
-const App = () =>
-  <Router>
-    <div>
+const pathsNotLinha = window.location.pathname.split('/')
+class App extends Component{
 
-      <Navigation />
+  render(){
+    return(
+      <Router>
+        <div>
+          
 
-      <Route exact path={routes.LANDING} component={() => <LandingPage />} />
-      <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
-      <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
-      <Route exact path={routes.HOME} component={() => <HomePage />} />
-      <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
-      <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
-      <Route exact path={routes.LINE} component={() => <LineLocation />} />
-      <Route exact path={routes.SEARCH_BUS} component={() => <Lines />} />
-      
-      <Route   path={routes.SHARE_LOCATION} component={ ShareLocation } />
-      
-      <Route exact path={routes.TEST} component={() => <Test />} />
-    </div>
-  </Router>
+          <Route exact path={routes.LANDING} component={() => <LandingPage />} />
+          <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
+          <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
+          <Route exact path={routes.HOME} component={() => <HomePage />} />
+          <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
+          <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
+          <Route exact path={routes.LINE} component={() => <LineLocation />} />
+          <Route exact path={routes.SEARCH_BUS} component={() => <Lines />} />
 
+          <Route path={routes.SHARE_LOCATION} component={ShareLocation} />
+          {
+            console.log(window.location.href)
+          }
+
+
+          <Route exact path={routes.TEST} component={() => <Test />} />
+        </div>
+      </Router>
+
+    );
+  }
+}
+ 
 export default withAuthentication(App);

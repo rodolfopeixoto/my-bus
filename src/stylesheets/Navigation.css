@@ -1,27 +1,27 @@
-.navbar {
-    background-color: rgb(0, 153, 255);
-}
+ .navbar {
+     background-color: rgb(0, 153, 255);
+ }
 
-.navbar-brand {
-    color: white;
-}
+ .navbar-brand {
+     color: white;
+ }
 
-.nav-link {
-    color: white;
-}
+ .nav-link {
+     color: white;
+ }
 
-.nav-link:hover {
-    color: rgb(226, 226, 226);
-}
+ .nav-link:hover {
+     color: rgb(226, 226, 226);
+ }
 
-.container {
-    margin-top: 10px;
-}
+ .container {
+     margin-top: 10px;
+ }
 
-button {
-    margin-top: 8px;
-}
+ button {
+     margin-top: 8px;
+ }
 
-.form-control {
-    margin: 15px 0;
-}
+ .form-control {
+     margin: 15px 0;
+ }

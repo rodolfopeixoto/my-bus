@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { auth } from '../firebase';
 
 const byPropKey = (propertyName, value) => () => ({
@@ -45,29 +44,29 @@ class PasswordChangeForm extends Component {
       passwordOne === '';
 
     return (
-      <form className="form-control"  onSubmit={this.onSubmit}>
-        <div className="form-group">
+        <form className="form-control"  onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <input
+              value={passwordOne}
+              onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
+              type="password"
+              placeholder="Nova Senha"
+              className="form-control"
+            />
+          </div>
           <input
-            value={passwordOne}
-            onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
+            value={passwordTwo}
+            onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
             type="password"
-            placeholder="Nova Senha"
+            placeholder="Confirme a Nova Senha"
             className="form-control"
           />
-        </div>
-        <input
-          value={passwordTwo}
-          onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
-          type="password"
-          placeholder="Confirme a Nova Senha"
-          className="form-control"
-        />
-        <button disabled={isInvalid} type="submit" className="form-control btn btn-primary">
-          Resetar minha Senha
-        </button>
+          <button disabled={isInvalid} type="submit" className="form-control btn btn-primary">
+            Resetar minha Senha
+          </button>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          {error && <p>{error.message}</p>}
+        </form>
     );
   }
 }

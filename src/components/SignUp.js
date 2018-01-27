@@ -5,11 +5,17 @@ import {
   } from 'react-router-dom';
 import { auth, db } from './../firebase';
 import * as routes from './../constants/routes';
+import Navigation from './Navigation';
+
 
 const SignUpPage = ({ history }) =>
-  <div className="container">
-    <h1>Cadastrar</h1>
-    <SignUpForm history={history} />
+
+  <div>
+    <Navigation />
+    <div className="container">
+      <h1>Cadastrar</h1>
+      <SignUpForm history={history} />
+    </div>
   </div>
 
 const INITIAL_STATE = {
@@ -88,77 +94,76 @@ class SignUpForm extends Component {
       dataDeNascimento === ''
       cpf === '';
     return(
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-        <input 
-          value={nome}
-          onChange={ event => this.setState(byPropKey('nome', event.target.value)) }
-          type="text"
-          placeholder="Nome"
-          className="form-control"
-        />
-        </div>
-
-        <div className="form-group">
-          <input
-            value={sobrenome}
-            onChange={event => this.setState(byPropKey('sobrenome', event.target.value))}
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+          <input 
+            value={nome}
+            onChange={ event => this.setState(byPropKey('nome', event.target.value)) }
             type="text"
-            placeholder="Sobrenome"
+            placeholder="Nome"
             className="form-control"
           />
-        </div>
+          </div>
 
-        <div className="form-group">
-        <input 
-          value={email}
-          onChange={ event => this.setState(byPropKey('email', event.target.value)) }
-          type="text"
-          placeholder="Email"
-          className="form-control"
-        />
-        </div>
-        <div className="form-group">
-        <input 
-          value={passwordOne}
-          onChange={ event => this.setState(byPropKey('passwordOne', event.target.value)) }
-          type="password"
-          placeholder="Senha"
-          className="form-control"
-        />
-        </div>
-        <div className="form-group">
-        <input 
-          value={passwordTwo}
-          onChange={ event => this.setState(byPropKey('passwordTwo', event.target.value)) }
-          type="password"
-          placeholder="Confirme a senha"
-          className="form-control"
-        />
-        </div>
-        <div className="form-group">
-        <input 
-          value={cpf}
-          onChange={ event => this.setState(byPropKey('cpf', event.target.value)) }
-          type="text"
-          placeholder="CPF"
-          className="form-control"
-        />
-        </div>
-        <div className="form-group">
-        <input 
-          value={dataDeNascimento}
-          onChange={ event => this.setState(byPropKey('dataDeNascimento', event.target.value)) }
-          type="date"
-          className="form-control"
-        />
-        </div>
-        <button disabled={isInvalid} type="submit" className="btn btn-primary form-control">
-          Cadastrar
-        </button>
-        { error && <p>{ error.message }</p>}
-      </form>
+          <div className="form-group">
+            <input
+              value={sobrenome}
+              onChange={event => this.setState(byPropKey('sobrenome', event.target.value))}
+              type="text"
+              placeholder="Sobrenome"
+              className="form-control"
+            />
+          </div>
 
+          <div className="form-group">
+          <input 
+            value={email}
+            onChange={ event => this.setState(byPropKey('email', event.target.value)) }
+            type="text"
+            placeholder="Email"
+            className="form-control"
+          />
+          </div>
+          <div className="form-group">
+          <input 
+            value={passwordOne}
+            onChange={ event => this.setState(byPropKey('passwordOne', event.target.value)) }
+            type="password"
+            placeholder="Senha"
+            className="form-control"
+          />
+          </div>
+          <div className="form-group">
+          <input 
+            value={passwordTwo}
+            onChange={ event => this.setState(byPropKey('passwordTwo', event.target.value)) }
+            type="password"
+            placeholder="Confirme a senha"
+            className="form-control"
+          />
+          </div>
+          <div className="form-group">
+          <input 
+            value={cpf}
+            onChange={ event => this.setState(byPropKey('cpf', event.target.value)) }
+            type="text"
+            placeholder="CPF"
+            className="form-control"
+          />
+          </div>
+          <div className="form-group">
+          <input 
+            value={dataDeNascimento}
+            onChange={ event => this.setState(byPropKey('dataDeNascimento', event.target.value)) }
+            type="date"
+            className="form-control"
+          />
+          </div>
+          <button disabled={isInvalid} type="submit" className="btn btn-primary form-control">
+            Cadastrar
+          </button>
+          { error && <p>{ error.message }</p>}
+        </form>
     );
   }
 

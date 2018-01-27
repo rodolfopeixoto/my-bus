@@ -17,30 +17,33 @@ export const onceGetUsers = () =>
 
 
 //Linha CADASTRAR
-export const doCreateLine = (business, numberLine, itinerary, timestamp, email, updated_at, city) =>
+export const doCreateLine = (nomeDaEmpresa, direcao, itinerario, cidade, paramsItinerario, pontos, transporte ) =>
 
-  db.ref(`/linhas/${city}`).push({
-    business,
-    numberLine,
-    itinerary,
-    timestamp,
-    email,
-    updated_at
+  db.ref(`/linhas/${cidade}`).push({
+    nomeDaEmpresa,
+    direcao,
+    itinerario,
+    cidade,
+    paramsItinerario,
+    pontos,
+    transporte
   })
 
 // Return all Linhas
 export const onceGetLines = () =>
-  db.ref('linhas/camposDosGoytacazes').once('value');
+  db.ref('linhas/campos-dos-goytacazes').once('value');
 
 
 // Share location cadastrar
-export const doCreateShareLocation = (email, city, latitude, longitude, numberLine, itinerary) =>
-  db.ref(`/localizacao/${city}`).push({
+export const doCreateShareLocation = (email, latitude, longitude, nomeDaEmpresa, direcao, itinerario, cidade, horarioAtualizacao ) =>
+  db.ref(`/compartilhar-localizacao/${cidade}/${itinerario}`).push({
     email,
-    city,
     latitude,
     longitude,
-    numberLine,
-    itinerary
+    nomeDaEmpresa,
+    direcao,
+    itinerario,
+    cidade,
+    horarioAtualizacao
   })
 //  db.ref(`/localizacao/${city}`).remove();

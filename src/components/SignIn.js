@@ -4,13 +4,17 @@ import { SignUpLink } from './SignUp';
 import { PasswordForgetLink } from './PasswordForget';
 import { auth } from '../firebase';
 import * as routes from '../constants/routes';
+import Navigation from './Navigation';
 
 const SignInPage = ({ history }) =>
-  <div className="container">
-    <h1>Acessar</h1>
-    <SignInForm history={history} />
-    <PasswordForgetLink />
-    <SignUpLink />
+  <div>
+    <Navigation />
+    <div className="container">
+      <h1>Acessar</h1>
+      <SignInForm history={history} />
+      <PasswordForgetLink />
+      <SignUpLink />
+    </div>
   </div>
 
 
@@ -83,31 +87,32 @@ class SignInForm extends Component {
       email === '';
 
       return(
-        <form onSubmit={this.onSubmit} >
-          <div className="form-group">
-            <input 
-                value={email}
-                onChange={ event => this.setState(byPropKey('email', event.target.value) )}
-                type="text"
-                placeholder="Email"
-                className="form-control"
-           />
-           </div>
-           <div className="form-group">
-              <input 
-                value={password}
-                onChange={ event => this.setState(byPropKey('password', event.target.value)) }
-                type="password"
-                placeholder="Senha"
-                className="form-control"
+
+            <form onSubmit={this.onSubmit} >
+              <div className="form-group">
+                <input 
+                    value={email}
+                    onChange={ event => this.setState(byPropKey('email', event.target.value) )}
+                    type="text"
+                    placeholder="Email"
+                    className="form-control"
               />
-            </div>
+              </div>
+              <div className="form-group">
+                  <input 
+                    value={password}
+                    onChange={ event => this.setState(byPropKey('password', event.target.value)) }
+                    type="password"
+                    placeholder="Senha"
+                    className="form-control"
+                  />
+                </div>
 
-           <button disabled={isInvalid} type="submit" className="btn btn-primary form-control">Acessar</button>
+              <button disabled={isInvalid} type="submit" className="btn btn-primary form-control">Acessar</button>
 
-           { error && <p>{this.messagePtBR(error.message)}</p> }
+              { error && <p>{this.messagePtBR(error.message)}</p> }
 
-        </form>
+            </form>
       );
   }
 }

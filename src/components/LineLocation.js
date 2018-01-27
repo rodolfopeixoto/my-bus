@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-require('dotenv').config()
+import '../stylesheets/Map.css';
+import { Link } from 'react-router-dom';
+import * as routes from '../constants/routes';
+import 'font-awesome/css/font-awesome.min.css';
 
 class LineLocation extends Component {
 
@@ -81,30 +84,57 @@ class LineLocation extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Map 
-          google={this.props.google} 
-          zoom={15}
-          style={style}
-          center={{
-            lat: this.state.lat,
-            lng: this.state.long
-          }}
-          onClick={this.onMapClicked}
-          >
-        <Marker 
-            name={'Your position'}
-            position={{ lat: this.state.lat, lng: this.state.long }}
-        />
+          <Map
+            google={this.props.google} 
+            zoom={15}
+            center={{
+              lat: this.state.lat,
+              lng: this.state.long
+            }}
+            onClick={this.onMapClicked}
+            >
+            
+      <a href="javascript:void(0)" className="float" id="menu-share"> 
+          <i class="fa fa-share my-float"></i>
+      </a>
+        <ul className="fab">
 
-        <InfoWindow onClose={this.onInfoWindowClose}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
+          <li>
+            <a href="https://www.facebook.com/meuonibusBR" target="_blank">
+              <i className="fa fa-facebook my-float"></i>
+            </a>
+            <div class="label-container">
+              <div class="label-text">Facebook</div>
+              <i class="fa fa-play label-arrow"></i>
             </div>
-        </InfoWindow>
+          </li>
+          <li>
+            <Link to={routes.SEARCH_BUS}>
+              <i className="fa fa-undo my-float"></i>
+            </Link>
+            <div class="label-container">
+              <div class="label-text">Voltar</div>
+              <i class="fa fa-play label-arrow"></i>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <i className="fa fa-map-marker my-float"></i>
+            </a>
+            <div class="label-container">
+              <div class="label-text">Ponto de Ônibus</div>
+              <i class="fa fa-play label-arrow"></i>
+            </div>
+          </li>
+        </ul>
 
-      </Map>
-      </div>
+          <InfoWindow onClose={this.onInfoWindowClose}>
+              <div>
+                <h1>{this.state.selectedPlace.name}</h1>
+              </div>
+          </InfoWindow>
+
+        </Map>
     );
   }
 }
