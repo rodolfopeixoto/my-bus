@@ -36,10 +36,6 @@ class App extends Component{
           <Route exact path={routes.SEARCH_BUS} component={() => <Lines />} />
 
           <Route path={routes.SHARE_LOCATION} component={ShareLocation} />
-          {
-            console.log(window.location.href)
-          }
-
 
           <Route exact path={routes.TEST} component={() => <Test />} />
         </div>

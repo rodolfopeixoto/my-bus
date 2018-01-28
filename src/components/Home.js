@@ -1,68 +1,171 @@
 import React, { Component } from 'react';
 import withAuthorization from './withAuthorization';
-import { db } from '../firebase';
+import { db, auth, currentUser } from '../firebase';
 import Navigation from './Navigation';
+
+
+const INITIAL_STATE = {
+  cidade: 'campos-dos-goytacazes',
+  email: '',
+  comentario: '',
+  users: null,
+  error: null,
+  success: null,
+  posts: null,
+  nome: ''
+}
+
+
+const byPropKey = (propertyName, value) => () => ({
+  [propertyName]: value,
+});
 
 class HomePage extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      users: null
-    };
+    this.state = { ...INITIAL_STATE };
+    this.getPosts = this.getPosts.bind(this);
+    this.millisecondsToDate = this.millisecondsToDate.bind(this);
+    this.getCurrentUser = this.getCurrentUser.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.createPost = this.createPost.bind(this);
   }
 
+  onSubmit(event){
 
-  componentDidMount(){
-    db.onceGetUsers()
-      .then(snapshot => 
-        this.setState( () => ({ users: snapshot.val() }))
-      );
+    event.preventDefault();
+    const {
+      cidade,
+      email,
+      comentario,
+      users,
+      error,
+      success,
+      posts,
+      nome
+     } = this.state;
+
+
+    let timestamp = new Date().getTime();
+    this.createPost(cidade, email, comentario, timestamp, nome);
+
   }
-  
 
-  render(){
+  createPost(cidade, email, comentario, timestamp, nome){
+    db.doCreatePost(cidade, email, comentario, timestamp, nome)
+      .then((success) => {
+        this.setState({ cidade, email, comentario, timestamp, nome });
+      })
+      .catch(error => {
+        this.setState(byPropKey('error', error));
+      });
+  }
 
-    const { users } = this.state;
+  getCurrentUser() {
+    db.getUserForEmail().on('value', (snapshot) => {
+      let users = snapshot.val();
+      let user;
+      Object.keys(users).map((key) => {
+        if (users[key].email === auth.getUser().email) {
+          user = users[key]
+        }
+      });
+      this.setState({ nome: user.nome});
+    });
 
-    return(
+  }
+
+  getPosts() {
+    db.getLastPosts().limitToLast(15).on('value', (snapshot) => {
+      let posts = snapshot.val();
+      this.setState({ posts })
+
+    });
+  }
+
+  componentWillMount() {
+    this.setState({ email: auth.getUser().email })
+    this.getPosts();
+    this.getCurrentUser();
+  }
+
+  millisecondsToDate(time) {
+    new Date(time).toString('d/MM/yyyy h:mm:ss');
+  }
+
+  render() {
+    const {
+      cidade,
+      email,
+      comentario,
+      users,
+      error,
+      success,
+      posts,
+      nome
+    } = this.state;
+
+    const isInvalid =
+      comentario === ''
+    return (
       <div>
         <Navigation />
         <div className="container">
-          <h2>Vamos compartilhar e mudar a cidade?</h2>
-          <p>The Home Page is accessble by every signed in user.</p>
-
-          { !!users && <UserList users={users} /> }
+          {error &&
+            <div className="alert alert-danger">
+              <strong>Error:</strong> {error.message}
+            </div>
+          }
+          <h2>O que está acontecendo agora?</h2>
+          <form onSubmit={this.onSubmit} className="form-control">
+            <div className="form-group">
+              <textarea
+                value={comentario || ''}
+                onChange={event => this.setState(byPropKey('comentario', event.target.value))}
+                placeholder="Envie uma mensagem de até 200 caracteres"
+                className="form-control"
+                maxLength="200"
+              ></textarea>
+            </div>
+            <button type="submit" disabled={isInvalid} className="form-control btn btn-primary">Enviar Comentário</button>
+          </form>
         </div>
+
+
+        {!!posts && <PostsList posts={posts} />}
       </div>
     );
   }
 }
 
 
+const PostsList = ({ posts }) =>
+  <div className="container">
+    {
+      Object.keys(posts).reverse().map(key =>
+        <div key={key}>
+          <div className="card">
+            <div className="card-header">
+              { posts[key].nome }
+            </div>
+            <div className="card-body">
+              <blockquote className="blockquote mb-0">
+                <p>
+                  {posts[key].comentario}
+                </p>
+                <footer className="blockquote-footer"> <cite title="Source Title">Publicado: {posts[key].timestamp}</cite></footer>
+              </blockquote>
+            </div>
+          </div>
+          {/* Email: { posts[key].email } */}
+          <br />
 
-const UserList = ({ users }) =>
- <div className="container">
+        </div>
+      )
+    }
+  </div>
 
-   {
-     Object.keys(users).map( key => 
-      <div key={key}>Olá, {users[key].nome}</div>
-    )
-   }
-
-  <h3>Convide seus amigos a testar</h3>
-  <h4>Você tem x convites</h4>
-  <form className="form-control">
-    <div className="form-group">
-      <input
-        type="email"
-        placeholder="carlos@meubus.me"
-        className="form-control"
-      />
-    </div>
-    <button type="submit" className="form-control btn btn-primary">Convidar</button>
-  </form>
- </div>
 
 const authCondition = (authUser) => !!authUser;
 

@@ -156,47 +156,6 @@ class MapShare extends Component {
                     </div>
                 </InfoWindow>
 
-                <a href="javascript:void(0)" className="float" id="menu-share">
-                    <i className="fa fa-share my-float"></i>
-                </a>
-                <ul className="fab">
-
-                    <li>
-                        <a onClick={auth.doSignOut}>
-                            <i className="fa fa-sign-out my-float"></i>
-                        </a>
-                        <div className="label-container">
-                            <div className="label-text">Sair</div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <a href="https://www.facebook.com/meuonibusBR" target="_blank">
-                            <i className="fa fa-facebook my-float"></i>
-                        </a>
-                        <div className="label-container">
-                            <div className="label-text">Facebook</div>
-                        </div>
-                    </li>
-                    <li>
-                        <Link to={routes.SEARCH_BUS}>
-                            <i className="fa fa-undo my-float"></i>
-                        </Link>
-                        <div className="label-container">
-                            <div className="label-text">Voltar</div>
-                            <i className="fa fa-play label-arrow"></i>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i className="fa fa-map-marker my-float"></i>
-                        </a>
-                        <div className="label-container">
-                            <div className="label-text">Ponto de Ônibus</div>
-                            <i className="fa fa-play label-arrow"></i>
-                        </div>
-                    </li>
-                </ul>
 
             </Map>
 

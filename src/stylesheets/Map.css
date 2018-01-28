@@ -166,10 +166,12 @@ a:hover+div.label-container {
     opacity: 1;
 }
 
-:not([href]):not([tabindex]){
+a:not([href]):not([tabindex]) {
     color: rgb(255, 255, 255);
     cursor: pointer;
 }
+
+
 /* 
 .btn-secondary:not([disabled]):not(.disabled):active,
 .btn-secondary:not([disabled]):not(.disabled).active,
@@ -178,3 +180,16 @@ a:hover+div.label-container {
     background-color: #6c757d;
     border-color: #666e76;
 } */
+
+.container h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    color: #3374ff;
+}
+
+p.card-text{
+    color: white;
+}

@@ -34,6 +34,7 @@ class Lines extends Component {
             <div>
                 <Navigation />
                 <div className="container">
+                    <h2>Linhas</h2>
                     {!!lines && <CardBus lines={lines} /> }
                 </div> 
             </div>     
@@ -48,6 +49,8 @@ const CardBus = ({ lines }) =>
             <CardTitle>Linha: {lines[key].itinerario}</CardTitle>
             <CardText>
                 Direção: {lines[key].direcao}
+                <br/>
+                Veiculo: { lines[key].transporte }
                 <br />
                 Pontos: <br/> {lines[key].pontos}
             </CardText>

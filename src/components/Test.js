@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { 
-  Link,
   withRouter
   } from 'react-router-dom';
 import { auth, db } from './../firebase';
 import * as routes from './../constants/routes';
+import Navigation from './Navigation';
 
 const TestPage = ({ history }) =>
-  <div className="container">
-    <h1>Test</h1>
-    <TestForm history={history} />
-  </div>
+  <div>
+      <Navigation />
+      <div className="container">
+        <h1>Test</h1>
+        <TestForm history={history} />
+      </div>
+    </div>
 
 const INITIAL_STATE = {
   nomeDaEmpresa: '',
@@ -138,13 +141,14 @@ class TestForm extends Component {
         </div>
 
         <div className="form-group">
-          <input
-            value={transporte}
-            onChange={event => this.setState(byPropKey('transporte', event.target.value))}
-            type="text"
-            placeholder="onibus ou van"
-            className="form-control"
-          />
+            <select
+              className="form-control"
+              onChange={event => this.setState(byPropKey('transporte', event.target.value))}
+              value={transporte}
+              >
+                <option value="onibus">Ônibus</option>
+                <option value="van">Van</option>
+            </select>
         </div>
         <button disabled={isInvalid} type="submit" className="btn btn-primary form-control">
           Cadastrar
