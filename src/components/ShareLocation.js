@@ -3,9 +3,9 @@ import withAuthorization from './withAuthorization';
 import PropTypes from 'prop-types';
 import MapShare from './MapShare';
 
-const ShareLocation = (props, { authUser }) =>
+const ShareLocation = (props, { authUser, match }) =>
     <div>
-        <MapShare usuario={authUser} />
+        <MapShare  />
     </div>
 
 ShareLocation.contextTypes = {

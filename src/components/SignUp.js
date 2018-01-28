@@ -48,7 +48,6 @@ class SignUpForm extends Component {
       email,
       cpf,
       passwordOne,
-      passwordTwo,
       dataDeNascimento
     } = this.state;
 
@@ -91,7 +90,7 @@ class SignUpForm extends Component {
       email === '' ||
       nome === '' || 
       sobrenome === '' || 
-      dataDeNascimento === ''
+      dataDeNascimento === '' ||
       cpf === '';
     return(
         <form onSubmit={this.onSubmit}>

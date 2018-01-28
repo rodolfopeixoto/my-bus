@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import withAuthorization from './withAuthorization';
-import { db, auth, currentUser } from '../firebase';
+import { db, auth } from '../firebase';
 import Navigation from './Navigation';
 
 
@@ -26,7 +26,6 @@ class HomePage extends Component {
     super(props)
     this.state = { ...INITIAL_STATE };
     this.getPosts = this.getPosts.bind(this);
-    this.millisecondsToDate = this.millisecondsToDate.bind(this);
     this.getCurrentUser = this.getCurrentUser.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.createPost = this.createPost.bind(this);
@@ -39,10 +38,6 @@ class HomePage extends Component {
       cidade,
       email,
       comentario,
-      users,
-      error,
-      success,
-      posts,
       nome
      } = this.state;
 
@@ -90,20 +85,11 @@ class HomePage extends Component {
     this.getCurrentUser();
   }
 
-  millisecondsToDate(time) {
-    new Date(time).toString('d/MM/yyyy h:mm:ss');
-  }
-
   render() {
     const {
-      cidade,
-      email,
       comentario,
-      users,
       error,
-      success,
-      posts,
-      nome
+      posts
     } = this.state;
 
     const isInvalid =
@@ -140,31 +126,57 @@ class HomePage extends Component {
 }
 
 
-const PostsList = ({ posts }) =>
-  <div className="container">
-    {
-      Object.keys(posts).reverse().map(key =>
-        <div key={key}>
-          <div className="card">
-            <div className="card-header">
-              { posts[key].nome }
-            </div>
-            <div className="card-body">
-              <blockquote className="blockquote mb-0">
-                <p>
-                  {posts[key].comentario}
-                </p>
-                <footer className="blockquote-footer"> <cite title="Source Title">Publicado: {posts[key].timestamp}</cite></footer>
-              </blockquote>
-            </div>
-          </div>
-          {/* Email: { posts[key].email } */}
-          <br />
 
-        </div>
-      )
+
+
+
+class PostsList extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.millisecondsToDate = this.millisecondsToDate.bind(this);
+  }
+
+
+  millisecondsToDate(time) {
+    return new Date(time).toString('d/MM/yyyy h:mm:ss');
+  }
+
+
+  render(){
+
+    const {
+      posts
+    } = this.props;
+
+      return(
+
+        <div className="container">
+          {
+            Object.keys(posts).reverse().map(key =>
+              <div key={key}>
+                <div className="card">
+                  <div className="card-header">
+                    {posts[key].nome}
+                  </div>
+                  <div className="card-body">
+                    <blockquote className="blockquote mb-0">
+                      <p>
+                        {posts[key].comentario}
+                      </p>
+                      <footer className="blockquote-footer"> <cite title="Source Title">Publicado: {this.millisecondsToDate(posts[key].timestamp)}</cite></footer>
+                    </blockquote>
+                  </div>
+                </div>
+                <br />
+
+              </div>
+            )
+          }
+          </div>
+      );
     }
-  </div>
+  }
 
 
 const authCondition = (authUser) => !!authUser;

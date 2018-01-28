@@ -39,16 +39,14 @@ export const onceGetLines = () =>
 
 
 // Share location cadastrar
-export const doCreateShareLocation = (email, latitude, longitude, nomeDaEmpresa, direcao, itinerario, cidade, horarioAtualizacao) =>
+export const doCreateShareLocation = (email, cidade, latitude, longitude, itinerario, timestamp) =>
   db.ref(`/compartilhar-localizacao/${cidade}/${itinerario}`).push({
     email,
+    cidade,
     latitude,
     longitude,
-    nomeDaEmpresa,
-    direcao,
     itinerario,
-    cidade,
-    horarioAtualizacao
+    timestamp
   })
 //  db.ref(`/localizacao/${city}`).remove();
 

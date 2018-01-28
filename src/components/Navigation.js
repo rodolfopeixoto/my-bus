@@ -83,18 +83,6 @@ class NavigationAuth extends React.Component {
               <i className="fa fa-play label-arrow"></i>
             </div>
           </li>
-
-
-          <li>
-            <Link to={routes.TEST}>
-              <i className="fa fa-user-plus my-float"></i>
-            </Link>
-            <div className="label-container">
-              <div className="label-text">Cadastrar LINHA</div>
-              <i className="fa fa-play label-arrow"></i>
-            </div>
-          </li>
-
         </ul>
         </div>
 

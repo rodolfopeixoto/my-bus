@@ -26,16 +26,22 @@ const byPropKey = (propertyName, value) => () => ({
 });
 
 
-class MapShare extends Component {
+class MapView extends Component {
 
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
-        this.createShare = this.createShare.bind(this);
+        this.createView = this.createView.bind(this);
         this.geoLocation = this.geoLocation.bind(this);
 
+    }
+
+    componentDidMount() {
+        console.log('DidMount');
+        console.log(this.state);
+        // this.createView(email, cidade, latitude, longitude, itinerario, timestamp);
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -47,14 +53,17 @@ class MapShare extends Component {
             longitude,
             itinerario,
         } = nextState;
-        if (nextState.latitude != null && nextState.longitude != null){
+        if (nextState.latitude != null && nextState.longitude != null) {
 
             if (nextState.latitude !== this.state.latitude || nextState.longitude !== this.state.longitude) {
+                console.log('Cadastrou a latitude e longitude');
                 let positionTimestamp = new Date().getTime();
+                console.log('WillUpdateLocation: ', this.state);
                 this.setState({ email, cidade, latitude, longitude, itinerario })
-                this.createShare(email, cidade, latitude, longitude, itinerario, positionTimestamp)
+                this.createView(email, cidade, latitude, longitude, itinerario, positionTimestamp)
             }
 
+            console.log('Passou,pois é igual a latitude e longitude');
         }
     }
 
@@ -62,15 +71,23 @@ class MapShare extends Component {
 
         let positionItinerario = window.location.pathname.split('/')[3]
         this.geoLocation();
-        this.setState({ email: auth.getUser().email, itinerario: positionItinerario  })
+        this.setState({ email: auth.getUser().email, itinerario: positionItinerario })
+        console.log('WillMoun');
+        console.log(this.state);
+
+
+        console.log('EmailState', this.state.email);
+
     }
 
     geoLocation() {
         if (!navigator.geolocation) {
             this.setState({ error: 'Infelizmente o seu navegador que você está utilizando não suporta geolocalização.' })
         } else {
+            console.log('WatchGeoloaction')
             this.watchId = navigator.geolocation.watchPosition(
                 (position) => {
+                    console.log('Position Initial', position.coords);
                     this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude })
                 },
                 (error) => this.setState({
@@ -85,9 +102,15 @@ class MapShare extends Component {
     }
 
 
-    createShare(email, cidade, latitude, longitude, itinerario, timestamp) {
-        db.doCreateShareLocation(email, cidade, latitude, longitude, itinerario, timestamp)
+    createView(email, cidade, latitude, longitude, itinerario, timestamp) {
+        db.doCreateViewLocation(email, cidade, latitude, longitude, itinerario, timestamp)
             .then((success) => {
+                console.log('Email:', email);
+                console.log('cidade:', cidade);
+                console.log('latitude:', latitude);
+                console.log('longitude:', longitude);
+                console.log('itinerario:', itinerario);
+                console.log('timestamp:', timestamp);
                 this.setState({ email, cidade, latitude, longitude, itinerario, timestamp });
             })
             .catch(error => {
@@ -119,6 +142,7 @@ class MapShare extends Component {
     }
 
     render() {
+        console.log('Render')
         const {
             latitude,
             longitude,
@@ -127,11 +151,10 @@ class MapShare extends Component {
             selectedPlace
         } = this.state;
 
-        const { google } = this.props;
 
         return (
             <Map
-                google={google}
+                google={this.props.google}
                 className={'map'}
                 zoom={16}
                 center={{
@@ -214,4 +237,4 @@ class MapShare extends Component {
 
 export default GoogleApiWrapper({
     apiKey: (process.env.REACT_APP_API_MAP)
-})(MapShare);
+})(MapView);

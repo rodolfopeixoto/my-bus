@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { 
   withRouter
   } from 'react-router-dom';
-import { auth, db } from './../firebase';
-import * as routes from './../constants/routes';
+import { db } from './../firebase';
 import Navigation from './Navigation';
 
-const TestPage = ({ history }) =>
+const CreateLinePage = ({ history }) =>
   <div>
       <Navigation />
       <div className="container">
-        <h1>Test</h1>
-        <TestForm history={history} />
+        <h1>Cadastrar Linha</h1>
+        <CreateLineForm  />
       </div>
     </div>
 
@@ -21,6 +20,7 @@ const INITIAL_STATE = {
   itinerario: '',
   cidade: 'campos-dos-goytacazes',
   email: '',
+  paramsItinerario: '',
   pontos: '',
   error: null
 }
@@ -29,7 +29,7 @@ const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
 });
 
-class TestForm extends Component {
+class CreateLineForm extends Component {
   constructor(props){
     super(props);
 
@@ -49,7 +49,6 @@ class TestForm extends Component {
     } = this.state;
 
     const {
-      history,
     } = this.props;
 
 
@@ -73,7 +72,6 @@ class TestForm extends Component {
       nomeDaEmpresa,
       direcao,
       itinerario,
-      cidade,
       paramsItinerario,
       pontos,
       transporte,
@@ -93,7 +91,7 @@ class TestForm extends Component {
         <div className="form-group">
         <input 
           value={nomeDaEmpresa}
-          onChange={ event => this.setState(byPropKey('nomeDaEmpresa', event.target.value)) }
+            onChange={event => this.setState(byPropKey('nomeDaEmpresa', event.target.value.toLowerCase())) }
           type="text"
           placeholder="Empresa"
           className="form-control"
@@ -103,7 +101,7 @@ class TestForm extends Component {
         <div className="form-group">
           <input
             value={direcao}
-            onChange={event => this.setState(byPropKey('direcao', event.target.value))}
+            onChange={event => this.setState(byPropKey('direcao', event.target.value.toLowerCase()))}
             type="text"
             placeholder="Direção"
             className="form-control"
@@ -113,7 +111,7 @@ class TestForm extends Component {
         <div className="form-group">
         <input 
           value={itinerario}
-          onChange={ event => this.setState(byPropKey('itinerario', event.target.value)) }
+            onChange={event => this.setState(byPropKey('itinerario', event.target.value.toLowerCase())) }
           type="text"
           placeholder="Itinerário"
           className="form-control"
@@ -123,7 +121,7 @@ class TestForm extends Component {
         <div className="form-group">
           <input
             value={paramsItinerario}
-            onChange={event => this.setState(byPropKey('paramsItinerario', event.target.value))}
+            onChange={event => this.setState(byPropKey('paramsItinerario', event.target.value.toLowerCase()))}
             type="text"
             placeholder="Parametro Itinerário"
             className="form-control"
@@ -133,7 +131,7 @@ class TestForm extends Component {
         <div className="form-group">
         <input 
           value={pontos}
-          onChange={ event => this.setState(byPropKey('pontos', event.target.value)) }
+          onChange={ event => this.setState(byPropKey('pontos', event.target.value.toLowerCase())) }
           type="text"
           placeholder="Pontos"
           className="form-control"
@@ -143,8 +141,7 @@ class TestForm extends Component {
         <div className="form-group">
             <select
               className="form-control"
-              onChange={event => this.setState(byPropKey('transporte', event.target.value))}
-              value={transporte}
+              onChange={event => this.setState(byPropKey('transporte', event.target.value.toLowerCase()))}
               >
                 <option value="onibus">Ônibus</option>
                 <option value="van">Van</option>
@@ -161,8 +158,8 @@ class TestForm extends Component {
 
 }
 
-export default withRouter(TestPage);
+export default withRouter(CreateLinePage);
 
 export {
-  TestForm,
+  CreateLineForm,
 }
