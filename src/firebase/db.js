@@ -48,6 +48,11 @@ export const doCreateShareLocation = (email, cidade, latitude, longitude, itiner
     itinerario,
     timestamp
   })
+
+
+// getLast Location
+export const onGetLocationLine = (cidade, itinerario) => 
+  db.ref(`/compartilhar-localizacao/${cidade}/${itinerario}`)
 //  db.ref(`/localizacao/${city}`).remove();
 
 
@@ -66,7 +71,6 @@ export const doCreatePost = (cidade, email, comentario, timestamp, nome) =>
 // Return all Posts
 export const getLastPosts = () =>
   db.ref('posts')
-
 
 
 

@@ -46,15 +46,15 @@ class Lines extends Component {
 const CardBus = ({ lines }) => 
     Object.keys(lines).map( key =>
         <Card body inverse color="primary" key={key}>
-            <CardTitle>Linha: {lines[key].itinerario}</CardTitle>
+            <CardTitle>Linha: {lines[key].itinerario.toUpperCase()}</CardTitle>
             <CardText>
-                Direção: {lines[key].direcao}
+                Direção: {lines[key].direcao.toUpperCase() }
                 <br/>
-                Veiculo: { lines[key].transporte }
+                Veiculo: {lines[key].transporte.toUpperCase() }
                 <br />
-                Pontos: <br/> {lines[key].pontos}
+                Pontos: <br /> {lines[key].pontos.toUpperCase() }
             </CardText>
-            <Link to={routes.LINE}>
+            <Link to={`/linha/${lines[key].cidade}/${lines[key].paramsItinerario}`}>
                 <Button className="form-control">VISUALIZAR</Button>
             </Link>
             <Link to={`/compartilhar-localizacao/${lines[key].cidade}/${lines[key].paramsItinerario}`}>
