@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as routes from '../constants/routes';
 import { Link } from 'react-router-dom';
 import { auth, db } from './../firebase';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import '../stylesheets/Map.css';
 import 'font-awesome/css/font-awesome.min.css';
 
@@ -22,11 +22,6 @@ const INITIAL_STATE = {
     bus: null,
     busLocation: null
 }
-
-const byPropKey = (propertyName, value) => () => ({
-    [propertyName]: value,
-});
-
 
 class MapView extends Component {
 
@@ -49,24 +44,6 @@ class MapView extends Component {
 
 
     componentDidUpdate(prevProps, prevState) {
-
-        const {
-            key,
-            busLocation
-        } = prevState;
-
-        const {
-
-            emaiUserBus,
-            emailCurrentUser,
-            cidade,
-            latitudeBus,
-            longitudeBus,
-            latUser,
-            lngUser,
-            itinerario,
-            error
-        } = this.state;
 
         if(this.state.busLocation !== null ){
 
@@ -130,11 +107,6 @@ class MapView extends Component {
 
     render() {
         const {
-            emaiUserBus,
-            emailCurrentUser,
-            cidade,
-            latitudeBus,
-            longitudeBus,
             latUser,
             lngUser,
             bus
@@ -177,8 +149,8 @@ class MapView extends Component {
 
 
                             <div className="mensagem-map-share">
-                                Quando se alocar na van ou no ônibus ajude também as outras pessoas. :D
-               </div>
+                                Última localização às {new Date(bus.timestamp).toString() }
+                             </div>
 
 
 

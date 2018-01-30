@@ -31,7 +31,7 @@ class NavigationAuth extends React.Component {
   render(){
     return(
       <div>
-        <a href="javascript:void(0)" className="float" id="menu-share">
+        <a href="" className="float" id="menu-share">
           <i className="fa fa-share my-float"></i>
         </a>
         <ul className="fab">
@@ -104,7 +104,7 @@ class NavigationNonAuth extends React.Component {
   render(){
     return(
                <div>
-                  <a href="javascript:void(0)" className="float" id="menu-share">
+                  <a href="" className="float" id="menu-share">
                       <i className="fa fa-share my-float"></i>
                   </a>
                   <ul className="fab">
