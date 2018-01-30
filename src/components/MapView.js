@@ -9,18 +9,17 @@ import 'font-awesome/css/font-awesome.min.css';
 
 
 const INITIAL_STATE = {
-    email: '',
+    emaiUserBus: '',
     emailCurrentUser: '',
     cidade: 'campos-dos-goytacazes',
-    latitudeBusBus: null,
-    longitudeBusBus: null,
+    latitudeBus: null,
+    longitudeBus: null,
+    latUser: null,
+    lngUser: null,
     itinerario: '',
-    timestamp: null,
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
     error: null,
     key: null,
+    bus: null,
     busLocation: null
 }
 
@@ -33,241 +32,207 @@ class MapView extends Component {
 
     constructor(props) {
         super(props);
-        this.state                  = { ...INITIAL_STATE }
-        this.geoLocationBus         = this.geoLocationBus.bind(this);
+        this.state = { ...INITIAL_STATE }
+        this.geoLocation = this.geoLocation.bind(this);
+        this.geoLocationBus = this.geoLocationBus.bind(this);
 
-
-        let cidadePath = window.location.pathname.split('/')[2]
-        let itinerarioPath = window.location.pathname.split('/')[3]
-        this.geoLocationBus(cidadePath, itinerarioPath);
     }
-
-
-    componentWillUpdate(nextProps, nextState) {
-
-        if(this.state.key != nextState.key){
-            
-
-            console.log('componentWillUpdate');
-            console.log("nextState.latitude: ", nextState.busLocation);
-            console.log("nextState.key: ", nextState.key);
-            console.log("keyState", this.state.key);
-
-            let cidadePath = window.location.pathname.split('/')[2]
-            let itinerarioPath = window.location.pathname.split('/')[3]
-            
-                this.setState({
-                    busLocation: nextState.busLocation,
-                    key: nextState.key
-                })
- 
-        }
-            
-      
-    }
+    
 
     componentWillMount() {
 
         let cidadePath = window.location.pathname.split('/')[2]
         let itinerarioPath = window.location.pathname.split('/')[3]
-        let bus = null;
-        
-        this.setState({ emailCurrentUser: auth.getUser().email, itinerario: itinerarioPath })
+        this.geoLocation();
         this.geoLocationBus(cidadePath, itinerarioPath);
     }
 
-    geoLocationBus(cidadePath, itinerarioPath) {
-        
-        db.onGetLocationLine(cidadePath, itinerarioPath).limitToLast(1).on('value', (snapshot) => {
-                let snapshott = snapshot.val();
-                let key = Object.keys(snapshott);
-                let busLocation = snapshott
-            this.setState({ busLocation, key });
 
-            });
+    componentDidUpdate(prevProps, prevState) {
 
-    }
-
-
-    componentDidMount(){
-
-        console.log('DidMoun');
-        console.log(this.state);
-    }
-
-    render() {
-        console.log('Render')
         const {
+            key,
+            busLocation
+        } = prevState;
+
+        const {
+
+            emaiUserBus,
+            emailCurrentUser,
+            cidade,
             latitudeBus,
             longitudeBus,
-            activeMarker,
-            busLocation,
-            key
+            latUser,
+            lngUser,
+            itinerario,
+            error
         } = this.state;
 
+        if(this.state.busLocation !== null ){
 
-        return (
-            <div> 
-                {!!busLocation && <MapViewRender busLocation={busLocation} key={key} />}
-            </div>
-        );
-    }
-}
+            let keyState = this.state.key.toString();
+            let busState = this.state.busLocation[keyState];
+            
+            if(this.state.bus === null || prevState.bus !== this.state.bus){
+                this.setState({
+                    bus: busState
+                });
+            }
 
+            if(prevState.key !== this.state.key){
 
+                this.setState({
 
+                    bus: busState
 
-const INITIAL_STATE_MAP = {
-    latitude: null,
-    longitude: null,
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {}
-}
+                });
 
-class MapViewRender extends React.Component{
+            }
 
-    constructor(props){
-        super(props);
-        this.state = { ...INITIAL_STATE_MAP}
-        this.onMarkerClick = this.onMarkerClick.bind(this);
-        this.onMapClicked = this.onMapClicked.bind(this);
+        }
+
     }
 
-    componentWillMount(){
-        const {
-            busLocation
-        } = this.props;
-      
-        console.log("ComponentWillMount() => ", busLocation[Object.keys(busLocation)].latitude)
-
-        let latitude = busLocation[Object.keys(busLocation)].latitude;
-        let longitude = busLocation[Object.keys(busLocation)].longitude;
-        this.setState({latitude, longitude});
+    componentWillUnmount() {
+        navigator.geolocation.clearWatch(this.watchId);
     }
 
+    geoLocationBus(cidadePath, itinerarioPath) {
 
-    onMarkerClick(props, marker, e) {
-        this.setState({
-            selectedPlace: props,
-            activeMarker: marker,
-            showingInfoWindow: true
+        db.onGetLocationLine(cidadePath, itinerarioPath).limitToLast(1).on('value', (snapshot) => {
+            let snapshott = snapshot.val();
+            let key = Object.keys(snapshott);
+            let busLocation = snapshott;
+
+            this.setState({ busLocation, key });
+
         });
+
     }
 
-
-    onMapClicked(props) {
-        if (this.state.showingInfoWindow) {
-            this.setState({
-                showingInfoWindow: false,
-                activeMarker: null
-            });
+    geoLocation() {
+        if (!navigator.geolocation) {
+            this.setState({ error: 'Infelizmente o seu navegador que você está utilizando não suporta geolocalização.' })
+        } else {
+            this.watchId = navigator.geolocation.watchPosition(
+                (position) => {
+                    this.setState({ latUser: position.coords.latitude, lngUser: position.coords.longitude });
+                },
+                (error) => this.setState({
+                    error: error.message
+                }), {
+                    enableHighAccuracy: false,
+                    timeout: 60000,
+                },
+            );
         }
     }
 
-
-
-    render(){
-     const {
-            latitude,
-            longitude,
-            showingInfoWindow,
-            activeMarker,
-            selectedPlace
+    render() {
+        const {
+            emaiUserBus,
+            emailCurrentUser,
+            cidade,
+            latitudeBus,
+            longitudeBus,
+            latUser,
+            lngUser,
+            bus
         } = this.state;
 
+        const { google } = this.props;
 
-        const {
-            busLocation,
-            key
-        } = this.props;
-
-        return(
+        return (
             <div>
-            {     
-                    <div>
-                    
-                            <Map
-                                google={this.props.google}
-                                className={'map'}
-                                zoom={16}
-                                center={{
-                                    lat: latitude,
-                                    lng: longitude
+            {
+                bus 
+                
+                ? 
+                        <Map
+                            google={google}
+                            className={'map'}
+                            zoom={15}
+                            center={{
+                                lat: bus.latitude,
+                                lng: bus.longitude
+                            }
+                            }  >
+
+
+                            <Marker
+                                name={'Você está aqui <3'}
+                                position={{ lat: latUser, lng: lngUser }}
+                                icon={{
+                                    url: require('../images/person.png')
                                 }}
-                                onClick={this.onMapClicked}
+                            />
 
-                            >
-                                <Marker
-                                    onClick={this.onMapClicked}
-                                    name={'Você está aqui <3'}
-                                    position={{ lat: latitude, lng: longitude }}
-                                    icon={{
-                                        url: require('../images/bus.png')
-                                    }}
-                                />
+                            <Marker
+                                name={'Você está aqui <3'}
+                                position={{ lat: bus.latitude, lng: bus.longitude }}
+                                icon={{
+                                    url: require('../images/bus.png')
+                                }}
+                            />
 
-                                <InfoWindow
-                                    marker={activeMarker}
-                                    visible={showingInfoWindow}
-                                >
-                                    <div>
-                                        <h1>{selectedPlace.name}</h1>
+
+                            <div className="mensagem-map-share">
+                                Quando se alocar na van ou no ônibus ajude também as outras pessoas. :D
+               </div>
+
+
+
+                            <ul className="fab">
+
+                                <li>
+                                    <a onClick={auth.doSignOut}>
+                                        <i className="fa fa-sign-out my-float"></i>
+                                    </a>
+                                    <div className="label-container">
+                                        <div className="label-text">Sair</div>
                                     </div>
-                                </InfoWindow>
+                                </li>
 
+                                <li>
+                                    <a href="https://www.facebook.com/meuonibusBR" rel="noopener noreferrer" target="_blank">
+                                        <i className="fa fa-facebook my-float"></i>
+                                    </a>
+                                    <div className="label-container">
+                                        <div className="label-text">Facebook</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <Link to={routes.SEARCH_BUS}>
+                                        <i className="fa fa-undo my-float"></i>
+                                    </Link>
+                                    <div className="label-container">
+                                        <div className="label-text">Voltar</div>
+                                        <i className="fa fa-play label-arrow"></i>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i className="fa fa-map-marker my-float"></i>
+                                    </a>
+                                    <div className="label-container">
+                                        <div className="label-text">Ponto de Ônibus</div>
+                                        <i className="fa fa-play label-arrow"></i>
+                                    </div>
+                                </li>
+                            </ul>
 
-                                <ul className="fab">
-
-                                    <li>
-                                        <a onClick={auth.doSignOut}>
-                                            <i className="fa fa-sign-out my-float"></i>
-                                        </a>
-                                        <div className="label-container">
-                                            <div className="label-text">Sair</div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <a href="https://www.facebook.com/meuonibusBR" rel="noopener noreferrer" target="_blank">
-                                            <i className="fa fa-facebook my-float"></i>
-                                        </a>
-                                        <div className="label-container">
-                                            <div className="label-text">Facebook</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <Link to={routes.SEARCH_BUS}>
-                                            <i className="fa fa-undo my-float"></i>
-                                        </Link>
-                                        <div className="label-container">
-                                            <div className="label-text">Voltar</div>
-                                            <i className="fa fa-play label-arrow"></i>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <i className="fa fa-map-marker my-float"></i>
-                                        </a>
-                                        <div className="label-container">
-                                            <div className="label-text">Ponto de Ônibus</div>
-                                            <i className="fa fa-play label-arrow"></i>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                            </Map>
-                    </div>
-                 
-
+                        </Map >
+                :
+              
+                <div className="container">
+                  carregando...
+                </div>
+                
             }
-            </div>
+          </div>
         );
     }
 }
-
-
-
 
 export default GoogleApiWrapper({
     apiKey: (process.env.REACT_APP_API_MAP)
