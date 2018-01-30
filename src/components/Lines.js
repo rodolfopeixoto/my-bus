@@ -34,7 +34,17 @@ class Lines extends Component {
                 <Navigation />
                 <div className="container">
                     <h2>Linhas</h2>
-                    {!!lines && <CardBus lines={lines} /> }
+
+                     {
+                         lines
+                         ?
+                            <CardBus lines={lines} />
+                         :
+
+                         <div className="container">
+                          Carregando...
+                         </div>
+                     }
                 </div> 
             </div>     
         );

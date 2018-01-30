@@ -119,7 +119,15 @@ class HomePage extends Component {
         </div>
 
 
-        {!!posts && <PostsList posts={posts} />}
+          { 
+            posts 
+
+            ?
+            <PostsList posts={posts} />
+            :
+
+            <div className="container">Carregando</div>
+          }
       </div>
     );
   }
