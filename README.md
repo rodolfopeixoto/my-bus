@@ -96,12 +96,15 @@ Documentation
 ----------------------
 
 Configurações de banco de dados e set up da API firebase
+
   arquivo: src/firebase/*.js
 
 Style do mapa e dos botões:
+
   file: src/stylesheets/*.css  
 
 Tela da visualização do ônibus:
+
   file: src/components/MapView.js
   
   No arquivo **MapView** você poderá visualizar e editar os mapa onde as pessoas poderão visualizar o ônibus.
@@ -112,11 +115,13 @@ Tela da visualização de compartilhamento da localização do ônibus
   No arquivo **MapShare** você poderá visualizar e editar os mapa onde as pessoas poderão compartilhar a localização do ônibus.
 
 Tela da visualização das linhas dos ônibus
+
   arquivo: src/components/Lines.js
 
   No arquivo **Lines** você poderá visualizar e editar o estilo das linhas.
 
 Tela da visualização dos comentários
+
   arquivo: src/components/Home.js
 
   No arquivo **Home** você poderá visualizar e editar o estilo e configuração dos comentários.
