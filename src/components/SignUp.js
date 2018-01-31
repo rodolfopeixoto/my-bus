@@ -155,6 +155,7 @@ class SignUpForm extends Component {
             value={dataDeNascimento}
             onChange={ event => this.setState(byPropKey('dataDeNascimento', event.target.value)) }
             type="date"
+            placeholder="Data de Nascimento"
             className="form-control"
           />
           </div>
@@ -170,9 +171,9 @@ class SignUpForm extends Component {
 
 const SignUpLink = () =>
   <p>
-    Você não tem uma conta? :( Vamos fazer uma! :D
-    {' '}
-    <Link to={routes.SIGN_UP}>CADASTRE-SE!</Link>
+    Você não tem uma conta? :( <br/>
+    Vamos fazer uma! :)  Clica aí embaixo e vamos compartilhar!<br/>
+    <Link to={routes.SIGN_UP} className="link-signup">CADASTRE-SE!</Link>
   </p>
 
 export default withRouter(SignUpPage);

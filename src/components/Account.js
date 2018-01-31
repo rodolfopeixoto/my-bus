@@ -10,7 +10,7 @@ const AccountPage = (props, { authUser }) =>
         <Navigation />
         <div className="container">
             <h1>Conta</h1>
-            <p>{authUser.email}</p>
+            <p>Email: {authUser.email}</p>
             <PasswordForgetForm />
             <PasswordChangeForm />
         </div>

@@ -44,7 +44,9 @@ class PasswordChangeForm extends Component {
       passwordOne === '';
 
     return (
-        <form className="form-control"  onSubmit={this.onSubmit}>
+      <div>
+        <h2>Desejo resetar a senha!</h2>
+        <form className="form-control" onSubmit={this.onSubmit}>
           <div className="form-group">
             <input
               value={passwordOne}
@@ -67,6 +69,7 @@ class PasswordChangeForm extends Component {
 
           {error && <p>{error.message}</p>}
         </form>
+      </div>
     );
   }
 }

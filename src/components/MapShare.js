@@ -71,13 +71,14 @@ class MapShare extends Component {
         } else {
             this.watchId = navigator.geolocation.watchPosition(
                 (position) => {
-                    this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude })
+                    setTimeout(() => {
+                      this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude })
+                    }, 30000);
                 },
                 (error) => this.setState({
                     error: error.message
                 }), {
-                    enableHighAccuracy: false,
-                    timeout: 60000,
+                    enableHighAccuracy: true
                 },
             );
 
@@ -166,6 +167,9 @@ class MapShare extends Component {
                </div>
 
 
+                    <a href="javascript:void(0)" className="float" id="menu-share">
+                        <i className="fa fa-share my-float"></i>
+                    </a>
 
                 <ul className="fab">
 

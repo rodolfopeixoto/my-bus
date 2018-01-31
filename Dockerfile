@@ -8,3 +8,4 @@ COPY package.json ./
 RUN npm install
 ADD . /meubus
 CMD npm start
+RUN npm install -g firebase-tools
