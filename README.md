@@ -36,7 +36,7 @@ REACT_APP_DATABASE_URL=ADICIONEaquiAdatabaseURL
 REACT_APP_PROJECT_ID=ADICIONEaquiOproject_id
 REACT_APP_STORAGE_BUCKET=ADICIONEaquiSTORAGEbucket
 REACT_APP_MESSAGING_SENDER_ID=ADICIONEaquiAMESSAGINGsenderID
-REACT_APP_GOOGLE_MAPS=ADICIONEaquiAMESSAGINGsenderID
+REACT_APP_API_MAP=ADICIONEaquiAMESSAGINGsenderID
 ```
 
 ---------------------
@@ -94,6 +94,9 @@ firebase deploy
 ```
 Documentation
 ----------------------
+
+Configurações de banco de dados e set up da API firebase
+  arquivo: src/firebase/*.js
 
 Style do mapa e dos botões:
   file: src/stylesheets/*.css  
