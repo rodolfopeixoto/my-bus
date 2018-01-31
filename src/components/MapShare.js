@@ -71,9 +71,7 @@ class MapShare extends Component {
         } else {
             this.watchId = navigator.geolocation.watchPosition(
                 (position) => {
-                    setTimeout(() => {
-                      this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude })
-                    }, 30000);
+                  this.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
                 },
                 (error) => this.setState({
                     error: error.message

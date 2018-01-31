@@ -1,0 +1,18 @@
+[debug] [2018-01-31T12:46:10.541Z] ----------------------------------------------------------------------
+[debug] [2018-01-31T12:46:10.547Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --debug
+[debug] [2018-01-31T12:46:10.548Z] CLI Version:   3.17.4
+[debug] [2018-01-31T12:46:10.548Z] Platform:      linux
+[debug] [2018-01-31T12:46:10.548Z] Node Version:  v8.2.1
+[debug] [2018-01-31T12:46:10.548Z] Time:          Wed Jan 31 2018 12:46:10 GMT+0000 (UTC)
+[debug] [2018-01-31T12:46:10.548Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-01-31T12:46:10.567Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-01-31T12:46:10.567Z] > authorizing via signed-in user
+[debug] [2018-01-31T12:46:10.572Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/buscampos-155620  
+  
+ Wed Jan 31 2018 12:46:10 GMT+0000 (UTC)
+[debug] [2018-01-31T12:46:11.365Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-31T12:46:11.367Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/buscampos-155620/tokens  
+  
+ Wed Jan 31 2018 12:46:11 GMT+0000 (UTC)
+[debug] [2018-01-31T12:46:12.210Z] <<< HTTP RESPONSE 200
