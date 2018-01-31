@@ -38,26 +38,6 @@ class MapShare extends Component {
 
     }
 
-    componentWillUpdate(nextProps, nextState) {
-
-        const {
-            email,
-            cidade,
-            latitude,
-            longitude,
-            itinerario,
-        } = nextState;
-        if (nextState.latitude != null && nextState.longitude != null){
-
-            if (nextState.latitude !== this.state.latitude || nextState.longitude !== this.state.longitude) {
-                let positionTimestamp = new Date().getTime();
-                this.setState({ email, cidade, latitude, longitude, itinerario })
-                this.createShare(email, cidade, latitude, longitude, itinerario, positionTimestamp)
-            }
-
-        }
-    }
-
     componentWillMount() {
 
         let positionItinerario = window.location.pathname.split('/')[3]
@@ -79,6 +59,33 @@ class MapShare extends Component {
                     enableHighAccuracy: true
                 },
             );
+
+        }
+    }
+
+
+
+    componentWillUpdate(nextProps, nextState) {
+
+        const {
+            email,
+            cidade,
+            latitude,
+            longitude,
+            itinerario,
+        } = nextState;
+        if (nextState.latitude != null && nextState.longitude != null){
+
+            if (nextState.latitude !== this.state.latitude || nextState.longitude !== this.state.longitude) {
+               
+                setTimeout(() => {
+
+                    let positionTimestamp = new Date().getTime();
+                    this.setState({ email, cidade, latitude, longitude, itinerario });
+                    this.createShare(email, cidade, latitude, longitude, itinerario, positionTimestamp);
+                    
+                }, 30000);
+            }
 
         }
     }
