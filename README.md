@@ -87,7 +87,17 @@ Inicialize o firebase
 firebase init
 ```
 
-Será criada alguns arquivos, entre no **firebase.json** mude a pasta **public** para **build**
+Será criada alguns arquivos, entre no **firebase.json** mude a pasta **public** para **build**, deve ficar assim:
+
+arquivo: firebase.json
+```
+{
+  "hosting": {
+    "public": "build"
+  }
+}
+
+```
 
 ```
 firebase deploy
