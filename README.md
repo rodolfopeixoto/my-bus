@@ -141,5 +141,5 @@ Tela da visualização dos comentários
 Developer
 ---------------------
 -   [Rodolfo Peixoto](http://www.rogpe.me)
--   [Amanda Gregório](http://)
+-   [Amanda Gregório](http://www.pedrorls.com)
 -   [Pedro Rodrigues](http://)
